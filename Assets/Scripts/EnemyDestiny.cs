@@ -35,7 +35,7 @@ public class EnemyDestiny : MonoBehaviour
         isGroundFloor = (Physics2D.Raycast(new Vector3(transform.position.x,transform.position.y - floorCheckY, transform.position.z),
             new Vector3(movHor,0,0),frontGrnRayDist,groundLayer));
         
-        if(!isGroundFloor){
+        if(isGroundFloor){
             movHor = movHor* -1;
         }
         if(Physics2D.Raycast(transform.position, new Vector3(movHor,0,0),frontCheck,groundLayer)){
@@ -60,7 +60,29 @@ public class EnemyDestiny : MonoBehaviour
         rb.velocity = new Vector2(movHor * speed, rb.velocity.y);
     }
 
+
+    void OnCollisionEnter2D(Collision2D collision){
+
+        //Dañar player(jugador)
+
+        if(collision.gameObject.CompareTag("Player")){
+            Game.obj.gameOver();
+            //PlayerDestiniy.obj.getDamage();
+        }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision){
+
+        //Destruir Enemigo
+         if(collision.gameObject.CompareTag("Player")){
+             getKilled();
+        }
+
+    }
+
     private void getKilled(){
+        FXManager.obj.showPop(transform.position);
         gameObject.SetActive(false);
     }
 }

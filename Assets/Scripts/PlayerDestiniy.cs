@@ -8,6 +8,7 @@ public class PlayerDestiniy : MonoBehaviour
     public static PlayerDestiniy obj;
 
     public int lives = 1;
+    public int gem = 0;
     public bool isGrounded = false;
     public bool isMoving = false;
     public bool isInmune = false;
@@ -76,6 +77,31 @@ public class PlayerDestiniy : MonoBehaviour
             theScale.x = Mathf.Abs(theScale.x);
         }
         transform.localScale = theScale;
+    }
+
+    public void getDamage(){
+        lives--;
+        if(lives <=  0){
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void addLive(){
+        lives++;
+
+        if(lives > Game.obj.maxLives){
+            lives= Game.obj.maxLives;
+        }
+    }
+
+    public void gemWin(){
+
+        gem++;
+        if(gem == Game.obj.maxGem){
+            Debug.Log("Ganaste!!");
+        }
+
+
     }
 
     void OnDestroy(){
