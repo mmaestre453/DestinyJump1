@@ -42,6 +42,11 @@ public class PlayerDestiniy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(Game.obj.gamePaused){
+            movHor = 0f;
+            return;
+        }
         //movimiento al presionar una tecla horizontal
         movHor = Input.GetAxisRaw("Horizontal");
         //detectando si el personaje se esta moviendo
@@ -64,8 +69,8 @@ public class PlayerDestiniy : MonoBehaviour
     }
     public void jump(){
         if(!isGrounded) return;
-
         rb.velocity = Vector2.up * jumpForce;
+        AudioManager.obj.playJump();
     }
     private void flip(float _xValue){
         Vector3 theScale = transform.localScale;
@@ -81,6 +86,7 @@ public class PlayerDestiniy : MonoBehaviour
 
     public void getDamage(){
         lives--;
+        AudioManager.obj.playHit();
         if(lives <=  0){
             this.gameObject.SetActive(false);
         }
@@ -94,10 +100,18 @@ public class PlayerDestiniy : MonoBehaviour
         }
     }
 
+    public void addGem(){
+        gem++;
+        if(gem > Game.obj.maxGem){
+            gem = Game.obj.maxGem;
+        }
+    }
+
     public void gemWin(){
 
         gem++;
         if(gem == Game.obj.maxGem){
+            AudioManager.obj.playWin();
             Debug.Log("Ganaste!!");
         }
 

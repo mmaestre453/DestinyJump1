@@ -30,7 +30,7 @@ public class EnemyDestiny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
          //Evitar caer precipicio
         isGroundFloor = (Physics2D.Raycast(new Vector3(transform.position.x,transform.position.y - floorCheckY, transform.position.z),
             new Vector3(movHor,0,0),frontGrnRayDist,groundLayer));
@@ -76,6 +76,7 @@ public class EnemyDestiny : MonoBehaviour
 
         //Destruir Enemigo
          if(collision.gameObject.CompareTag("Player")){
+             AudioManager.obj.playEnemyHit();
              getKilled();
         }
 

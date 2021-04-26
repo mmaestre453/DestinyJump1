@@ -5,11 +5,14 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     public int scoreGive = 100;
+    
     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D collision){
 
         if(collision.gameObject.CompareTag("Player")){
             Game.obj.addScore(scoreGive);
+            AudioManager.obj.playCoin();
+            UIManager.obj.updateScore();
             gameObject.SetActive(false);
         }
     }

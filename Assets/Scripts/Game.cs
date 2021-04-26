@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
 
     public bool gamePaused = false;
     public int score = 0;
+    public int gem = 0;
 
     void Awake(){
         obj = this;
@@ -21,13 +22,15 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gamePaused = false;
+        UIManager.obj.startGame();
     }
 
     // Update is called once per frame
     public void addScore (int scoreGive){
         score += scoreGive;
     }
+
     
 
     public void gameOver(){
