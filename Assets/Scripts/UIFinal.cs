@@ -19,6 +19,11 @@ public class UIFinal : MonoBehaviour
         Application.Quit();
     }
 
+    public void LevelThree(){
+        hidenFinal();
+        SceneManager.LoadScene("LevelThree");
+    }
+
     public void hidenFinal(){
         AudioManager.obj.playGui();
         Game.obj.gamePaused = false;
