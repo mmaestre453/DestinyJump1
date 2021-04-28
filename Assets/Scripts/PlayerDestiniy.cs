@@ -72,7 +72,7 @@ public class PlayerDestiniy : MonoBehaviour
         rb.velocity = Vector2.up * jumpForce;
         AudioManager.obj.playJump();
     }
-    private void flip(float _xValue){
+    public void flip(float _xValue){
         Vector3 theScale = transform.localScale;
 
         if(_xValue < 0)
@@ -100,19 +100,13 @@ public class PlayerDestiniy : MonoBehaviour
         }
     }
 
-    public void addGem(){
-        gem++;
-        if(gem > Game.obj.maxGem){
-            gem = Game.obj.maxGem;
-        }
-    }
-
     public void gemWin(){
 
         gem++;
         if(gem == Game.obj.maxGem){
             AudioManager.obj.playWin();
             Debug.Log("Ganaste!!");
+            UIFinal.obj.finalPanel();
         }
 
 

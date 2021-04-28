@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyDestiny : MonoBehaviour
 {
-     private Rigidbody2D rb;
+    public static EnemyDestiny obj;
+    private Rigidbody2D rb;
 
     public float movHor =0f;
     public float speed =3f;
@@ -21,6 +22,10 @@ public class EnemyDestiny : MonoBehaviour
     public int scoreGive = 50;
 
     private RaycastHit2D hit;
+
+    void Awake(){
+        obj = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +35,6 @@ public class EnemyDestiny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
          //Evitar caer precipicio
         isGroundFloor = (Physics2D.Raycast(new Vector3(transform.position.x,transform.position.y - floorCheckY, transform.position.z),
             new Vector3(movHor,0,0),frontGrnRayDist,groundLayer));
@@ -53,6 +57,7 @@ public class EnemyDestiny : MonoBehaviour
                     
             }
         }
+        
         
     }
 
@@ -77,13 +82,27 @@ public class EnemyDestiny : MonoBehaviour
         //Destruir Enemigo
          if(collision.gameObject.CompareTag("Player")){
              AudioManager.obj.playEnemyHit();
+             Game.obj.addScore(scoreGive);
+             UIManager.obj.updateScore();
              getKilled();
         }
 
     }
 
+    public void getDamageBoss(){
+        int bossLives = EnemyBoss.obj.livesEnemyBoss;
+        bossLives --;
+        if(bossLives<=0){
+            getKilled();
+        }
+    }
+
     private void getKilled(){
         FXManager.obj.showPop(transform.position);
         gameObject.SetActive(false);
+    }
+
+    void OnDestroy(){
+        obj = null;
     }
 }

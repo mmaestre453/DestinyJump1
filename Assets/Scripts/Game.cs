@@ -24,7 +24,11 @@ public class Game : MonoBehaviour
     {
         gamePaused = false;
         UIManager.obj.startGame();
+        UIFinal.obj.hidenFinal();
+        
     }
+
+
 
     // Update is called once per frame
     public void addScore (int scoreGive){
